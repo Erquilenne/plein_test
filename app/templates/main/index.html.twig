@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+    <div><h3>Search form:</h3>
+        {{ form(search_form) }}
+    </div>
+    <div><h3>Order form:</h3>
+        {{ form(order_form) }}
+    </div>
+
+    {% if orders is defined %}
+        <div>
+            <h4>Результат поиска:</h4>
+            {% for order in orders %}
+                <ul>
+                    <li>статус оплаты - {{ order.payment_status }}</li>
+                    <li>телефон - {{ order.phone }}</li>
+                    <li>статус доставки - {{ order.shipping_status }}</li>
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if order is defined %}
+        <div><h4>Заказ {{ order.orderId }}</h4>
+            <ul>
+                <li>статус оплаты - {{ order.payment_status }}</li>
+                <li>телефон - {{ order.phone }}</li>
+                <li>статус доставки - {{ order.shipping_status }}</li>
+            </ul>
+            <h4>Состав заказа:</h4>
+            {% for item in order.orderItems %}
+                <ul>
+                    <li>Стоимость товара - {{ item.price }}</li>
+                    <li>barcode товара - {{ item.barcode }}</li>
+                    <li>количество - {{ item.quantity }}</li>
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if dbOrder is defined %}
+        <div><h4>Заказ {{ dbOrder.orderId }}</h4>
+            <ul>
+                <li>статус оплаты - {{ dbOrder.paymentStatus }}</li>
+                <li>телефон - {{ dbOrder.phone }}</li>
+                <li>статус доставки - {{ dbOrder.shippingStatus }}</li>
+            </ul>
+            <h4>Состав заказа:</h4>
+            {% for item in dbOrder.items %}
+                <ul>
+                    <li>Стоимость товара - {{ item.price }}</li>
+                    <li>barcode товара - {{ item.barcode }}</li>
+                    <li>количество - {{ item.quantity }}</li>
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if message is defined %}
+        <div>{{ message }}</div>
+    {% endif %}
+{% endblock %}
